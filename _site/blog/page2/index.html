@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Page 2 of 2 for Blog | Cole Zmurchok</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Blog" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/blog/page2/" />
+<meta property="og:url" content="http://localhost:4000/blog/page2/" />
+<meta property="og:site_name" content="Cole Zmurchok" />
+<link rel="prev" href="http://localhost:4000/blog/" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/page2/","headline":"Blog","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=34a66d710c8e6653fc0e40f15d9a11bd883086b9">
+
+    <meta name="description" content="Cole Zmurchok">
+    <meta name="author" content="Cole Zmurchok">
+    <meta name="keywords" content="Cole Zmurchok">
+    <meta name="google-site-verification" content="zpg_RW_qQX6eQFQ5YVpFlQCdYPQvcWABWB76F4ap9Xo" />
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <div style="display: inline-block;">
+      <center>
+        <div>
+          <h1>Cole Zmurchok</h1>
+          <!-- <img src="/images/cole2.jpg" style="border-radius: 50%;"> -->
+          <img src="/images/cole2.jpg" style="width: 200px; height: 200px; border-radius: 50%;">
+        </div>
+        <div>
+          <nav>
+          <!-- <nav style="text-align:center;"> -->
+          <ul>
+          <li><a href="/">About Me</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/teaching">Teaching</a></li>
+          <li><a href="/files/cv.pdf">CV</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/archive">Archive</a></li>
+          </ul>
+          </nav>
+        </div>
+        </center>
+      </div>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h3>Blog</h3>
+
+  <!-- This loops through the paginated posts -->
+  
+    <h3><a href="/2018/02/16/randomly-choosing-a-direction.html">Advice for Mathematicians: Randomly Choosing a Direction</a></h3>
+    <p>
+      <span class="date">16 Feb 2018  &raquo;</span>
+    </p>
+    <div class="post">
+      <p>Suppose you want to randomly choose a direction. Maybe you’re a neutrophil, a type of immune cell, and you’re searching for a bacteria. Which direction should you choose? Maybe you’re coding, or building a mathematical model and you want to choose a random direction to move in.</p>
+
+<p><strong>How do you <em>uniformly</em> choose a direction in 2-dimensions?</strong></p>
+
+<p>I think that the easiest thing to do is to uniformly pick an angle, <script type="math/tex">\theta \in [0, 2 \pi),</script> and then convert to a vector on the unit circle:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*} x&=\cos \theta \\ y&=\sin \theta \end{align*} %]]></script>
+
+<p align="center">
+  <img width="200px" src="http://localhost:4000/images/directions.png" />
+</p>
+
+<p>This method works! If you sample 100 points from a uniform distribution on <script type="math/tex">\theta \in [0,2\pi)</script>, and plot the result, it looks pretty uniform on the unit circle:</p>
+
+<p align="center">
+  <img width="200px" src="http://localhost:4000/images/CirclePointPicking50.svg" /> <img width="200px" src="http://localhost:4000/images/CirclePointPicking100.svg" />
+</p>
+
+<p>The reason this works is that we want any little segment of arc length on the unit circle to have the same number of points. In terms of differentials (arc-length-elements and theta-elements), we have</p>
+
+<script type="math/tex; mode=display">ds = \sqrt{dx^2 + dy^2} = \sqrt{d\theta^2} = d\theta</script>
+
+<p>because <script type="math/tex">x = \cos \theta</script> and <script type="math/tex">y = \sin \theta</script>.</p>
+
+<p><strong>Does the same method work in 3-dimensions?</strong></p>
+
+<p>Interestingly, no! If you were to randomly choose two angles <script type="math/tex">\theta \in [0, 2\pi)</script> and <script type="math/tex">\phi \in [0, \pi]</script>, and use spherical coordinates</p>
+
+<script type="math/tex; mode=display">x = \cos \theta \sin \phi, \quad y = \sin \theta \sin \phi, \quad z = \cos \phi,</script>
+
+<p>then you would observe cluster of points at the poles. You can see this in the figure on the left, or by looking at a top down view, as on the right:</p>
+
+<p align="center">
+  <img width="200px" src="http://localhost:4000/images/sphere.svg" /> <img width="200px" src="http://localhost:4000/images/topdown.svg" />
+</p>
+
+<p>This method fails in 3D due to the fact that not all latitudes have the same circumference! In other words, our method breaks because the area element</p>
+
+<script type="math/tex; mode=display">d \Omega = \sin \phi d \theta d \phi</script>
+
+<p>is a function of <script type="math/tex">\phi</script>. Note that you could choose a transformation other than spherical coordinates so that this works nicely if you wanted to (<a href="http://mathworld.wolfram.com/SpherePointPicking.html" rel="noopener">http://mathworld.wolfram.com/SpherePointPicking.html</a>).</p>
+
+<p><strong><script type="math/tex">n</script>-dimensional uniform distributions on the unit sphere.</strong></p>
+
+<p>It turns out that one of the easiest ways generate a uniform distribution on the <script type="math/tex">n</script>-dimension unit sphere is to actually use <script type="math/tex">n</script> normal distributions…</p>
+
+<p>The density function for a normally distributed random variable vector <script type="math/tex">X</script> is</p>
+
+<script type="math/tex; mode=display">p(x; \mu,\Sigma) = \frac{1}{\sqrt{ (2 \pi)^n \det(\Sigma)}} \exp \left( -\frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right).</script>
+
+<p>For the sake of example, consider the case where the covariance is identity, <script type="math/tex">\Sigma = I</script>, and the mean is <script type="math/tex">\mu = \vec{0}</script>. Then</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*} p(x;0,I) &= \frac{1}{\sqrt{ (2 \pi)^n}} \exp \left( -\frac{1}{2} \sum_{i=1}^n x_i^2 \right) \\
+&= \frac{1}{\sqrt{ 2 \pi}} \exp \left( -\frac{x_1^2}{2} \right) \cdot \ldots \cdot \frac{1}{\sqrt{ 2 \pi}} \exp \left( -\frac{x_n^2}{2} \right).
+\end{align*} %]]></script>
+
+<p>In general, we can conclude that a <script type="math/tex">n</script>-dimensional Gaussian with mean <script type="math/tex">\mu \in \mathbb{R}^n</script> and diagonal covariance matrix <script type="math/tex">\Sigma = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)</script> is the same as a collection of <script type="math/tex">n</script> independent Gaussian random variables with mean <script type="math/tex">\mu_i</script> and variance <script type="math/tex">\sigma_i^2</script>.</p>
+
+<p>From this, we can sample uniformly random points on the <script type="math/tex">n</script>-dimension unit sphere by generatating <script type="math/tex">n</script> standard normal random variables <script type="math/tex">x_i</script> and normalizing:</p>
+
+<script type="math/tex; mode=display">\frac{1}{\sqrt{x_1^2 + \cdots + x_n^2}} (x_1,\dots,x_n)^T.</script>
+
+<p>On the unit sphere in <script type="math/tex">n</script>-dimensions, <script type="math/tex">\sum_{i=1}^n x_i^2 = 1</script>,</p>
+
+<script type="math/tex; mode=display">p(x;0,I) = \frac{1}{\sqrt{ (2 \pi)^n}} \exp \left( -\frac{1}{2} \sum_{i=1}^n x_i^2 \right) = \frac{e^{-\frac{1}{2}}}{\sqrt{ (2 \pi)^n}}</script>
+
+<p>is spherically symmetric, i.e., the distribution is constant!</p>
+
+<p>This works! No clustering!</p>
+
+<p align="center">
+  <img width="200px" src="http://localhost:4000/images/sphere_correct.svg" /> <img width="200px" src="http://localhost:4000/images/topdown_correct.svg" />
+</p>
+
+    </div>
+  
+
+  <br>
+  <hr>
+
+  
+  <div class="pagination">
+    
+      <a href="/blog/">&laquo; Prev</a>
+    
+
+    
+      
+        <a href="/blog/">1</a>
+      
+    
+      
+        <b>2</b>
+      
+    
+
+    
+      <span>Next &raquo;</span>
+    
+  </div>
+  
+
+
+      <!-- <footer class="site-footer"> -->
+
+        <!-- <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> -->
+     <!-- </footer> -->
+    </main>
+  </body>
+</html>

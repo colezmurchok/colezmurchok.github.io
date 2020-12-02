@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+
+
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Blog | Cole Zmurchok</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Blog" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/blog/" />
+<meta property="og:url" content="http://localhost:4000/blog/" />
+<meta property="og:site_name" content="Cole Zmurchok" />
+<link rel="next" href="http://localhost:4000/blog/page2/" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/","headline":"Blog","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=34a66d710c8e6653fc0e40f15d9a11bd883086b9">
+
+    <meta name="description" content="Cole Zmurchok">
+    <meta name="author" content="Cole Zmurchok">
+    <meta name="keywords" content="Cole Zmurchok">
+    <meta name="google-site-verification" content="zpg_RW_qQX6eQFQ5YVpFlQCdYPQvcWABWB76F4ap9Xo" />
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <div style="display: inline-block;">
+      <center>
+        <div>
+          <h1>Cole Zmurchok</h1>
+          <!-- <img src="/images/cole2.jpg" style="border-radius: 50%;"> -->
+          <img src="/images/cole2.jpg" style="width: 200px; height: 200px; border-radius: 50%;">
+        </div>
+        <div>
+          <nav>
+          <!-- <nav style="text-align:center;"> -->
+          <ul>
+          <li><a href="/">About Me</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/teaching">Teaching</a></li>
+          <li><a href="/files/cv.pdf">CV</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/archive">Archive</a></li>
+          </ul>
+          </nav>
+        </div>
+        </center>
+      </div>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h3>Blog</h3>
+
+  <!-- This loops through the paginated posts -->
+  
+    <h3><a href="/2019/03/15/Latin-Hypercube-Sampling.html">Latin Hypercube Sampling</a></h3>
+    <p>
+      <span class="date">15 Mar 2019  &raquo;</span>
+    </p>
+    <div class="post">
+      <p>In a recent research project, modeling cell shape diversity arising from complex Rho GTPase dynamics (preprint available on the <a href="https://www.biorxiv.org/content/10.1101/561373v1">bioRxiv</a>), I needed to generate a nearly uniform random sample of 5 dimensional parameter space.</p>
+
+<p>A quick and easy way to do this is using <a href="https://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin hypercube sampling</a>.</p>
+
+<p>The basic idea is that of a Latin square. A square grid containing sample positions is a Latin square if and only if there is only one sample in each row and in each column:</p>
+<p align="center">
+  <img width="300px" src="http://localhost:4000/images/lhs.png" />
+</p>
+
+<p>It’s super easy to cook up in MATLAB with the built in function <code class="language-plaintext highlighter-rouge">lhsdesign</code>. Since I’m working on my python skills, I thought I would code up a LHS generator in python and share it here.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1">#makes a Latin Hyper Cube sample
+#returns a matrix X of size n by p
+#of a LHS of n values on each of p variables
+#for each column of X, the n values are randomly
+#distributed with one from each interval
+#(0,1/n), (1/n,2/n), ..., (1-1/n,1)
+#and they are randomly permuted
+</span>
+<span class="k">def</span> <span class="nf">lhssample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">lhssample</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+    </div>
+  
+
+  <br>
+  <hr>
+
+  
+  <div class="pagination">
+    
+      <span>&laquo; Prev</span>
+    
+
+    
+      
+        <b>1</b>
+      
+    
+      
+        <a href="/blog/page2/">2</a>
+      
+    
+
+    
+      <a href="/blog/page2/">Next &raquo;</a>
+    
+  </div>
+  
+
+
+      <!-- <footer class="site-footer"> -->
+
+        <!-- <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> -->
+     <!-- </footer> -->
+    </main>
+  </body>
+</html>
