@@ -264,6 +264,7 @@ footer {
   }
   .flex-box img {
     margin-top: 10px;
+    aspect-ratio: 13/18;
   }
 }
 
