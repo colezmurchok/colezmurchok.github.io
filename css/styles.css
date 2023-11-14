@@ -259,6 +259,12 @@ footer {
   header li, header ul li + li + li {
     width:33%;
   }
+  .flex-box {
+    flex-wrap: wrap;
+  }
+  .flex-box img {
+    margin-top: 10px;
+  }
 }
 
 @media print {
@@ -267,4 +273,15 @@ footer {
     font-size:12pt;
     color:#444;
   }
+}
+
+.flex-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.flex-box img {
+  width: 100%;
+  min-width: 130px;
 }
